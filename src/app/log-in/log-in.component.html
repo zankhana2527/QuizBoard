@@ -1,0 +1,37 @@
+<div class="container">
+  <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+
+    <p class="login">Log in</p>
+
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for="email">Email</mat-label>
+      <input matInput formControlName="email" type="text" class="input">
+
+      <mat-error>
+        <span *ngIf="logInForm.controls.email.errors?.required">
+          Email is required
+        </span>
+      </mat-error>
+      <mat-error>
+        <span *ngIf="logInForm.controls.email.errors?.pattern">Invalid email pattern</span>
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for=" password">Password</mat-label>
+      <input matInput formControlName="password" type="password">
+
+      <mat-error>
+        <span *ngIf="logInForm.controls.password.errors?.required">
+          password is required
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit" [disabled]="!logInForm.valid">Log in</button>
+
+  </form>
+
+
+</div>

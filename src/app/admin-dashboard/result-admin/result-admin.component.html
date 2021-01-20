@@ -1,0 +1,53 @@
+<mat-form-field>
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Eg. Pass" #filterText>
+</mat-form-field>
+
+<table mat-table [dataSource]="result" matSort class="mat-elevation-z8">
+
+  <!-- # Column -->
+  <ng-container matColumnDef="#">
+    <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+    <td mat-cell *matCellDef="let result; let i=index"> {{i+1}} </td>
+  </ng-container>
+
+  <!-- quizId Column -->
+  <ng-container matColumnDef="quizName">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Quiz name </th>
+    <td mat-cell *matCellDef="let result"> {{result.quizName}} </td>
+  </ng-container>
+
+  <!-- userId Column -->
+  <ng-container matColumnDef="userName">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> User Name </th>
+    <td mat-cell *matCellDef="let result"> {{result.userName }}</td>
+  </ng-container>
+
+  <!-- passingPercentage Column -->
+  <ng-container matColumnDef="passingPercentage">
+    <th class="table-header table-data" mat-header-cell *matHeaderCellDef mat-sort-header> Passing Percentage </th>
+    <td class="table-data" mat-cell *matCellDef="let result"> {{result.passingPercentage}} </td>
+  </ng-container>
+
+  <!-- user score Column -->
+  <ng-container matColumnDef="percentage">
+    <th class="table-header table-data" mat-header-cell *matHeaderCellDef mat-sort-header> User score </th>
+    <td class="table-data" mat-cell *matCellDef="let result"> {{result.percentage}} </td>
+  </ng-container>
+
+  <!-- status -->
+  <ng-container matColumnDef="status">
+    <th class="table-header" mat-header-cell *matHeaderCellDef>status</th>
+    <td mat-cell *matCellDef="let result"> {{ result.status | uppercase}}</td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{filterText.value}}"</td>
+  </tr>
+</table>
+
+<p *ngIf="result.length === 0" class="no-result-alert">No results found</p>

@@ -1,0 +1,17 @@
+<div class="popup-box">
+  <mat-dialog-content>
+    <p class="header">
+      Assign users to this quiz
+    </p>
+    <div *ngFor="let user of users" class="users-checkbox">
+      <mat-checkbox class="example-margin" (click)=" addUser(user.email)">
+        {{user.firstname}} {{user.lastname}}
+      </mat-checkbox>
+    </div>
+  </mat-dialog-content>
+
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="selectedUsers">Assign</button>
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+  </div>
+</div>

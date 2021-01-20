@@ -1,0 +1,24 @@
+.navbar{
+  background-color: var(--secondary);
+  width: 17%;
+  position: fixed;
+  height: 100vh;
+  padding-top: 80px;
+}
+
+.navbar:focus{
+  outline: none;
+}
+
+.list-items{
+  color: white;
+}
+
+img{
+  margin-right: 5px;
+  margin-bottom: -5px;
+}
+
+.align-nav-item{
+  margin-left: 25% !important;
+}

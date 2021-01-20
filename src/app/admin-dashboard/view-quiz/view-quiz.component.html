@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="quiz-card">
+
+    <p class="quiz-title">{{ quiz.title }}</p>
+    <p class="quiz-description">{{ quiz.description }}</p>
+
+
+    <div *ngFor="let q of questions" class="question-card">
+      <p class="question-title">{{q.title}}</p>
+
+      <div *ngFor="let o of q.options" class="option">
+        <p [ngStyle]="{'color': o.isCorrect === true ? 'var(--secondary)' : 'black'}">{{o.name}}</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

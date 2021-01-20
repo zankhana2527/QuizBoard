@@ -1,0 +1,38 @@
+<table mat-table [dataSource]="quizzes" class="mat-elevation-z8">
+
+  <!-- title Column -->
+  <ng-container matColumnDef="title">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Title </th>
+    <td mat-cell *matCellDef="let quizzes"> {{quizzes.title}} </td>
+  </ng-container>
+
+  <!-- creator Column -->
+  <ng-container matColumnDef="creator">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Creator </th>
+    <td mat-cell *matCellDef="let quizzes"> {{quizzes.creator}} </td>
+  </ng-container>
+
+  <!-- time-limit Column -->
+  <ng-container matColumnDef="duration">
+    <th class="table-header table-data" mat-header-cell *matHeaderCellDef> Duration <small>(in minutes)</small> </th>
+    <td class="table-data" mat-cell *matCellDef="let quizzes"> {{quizzes.duration}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="passingPercentage">
+    <th class="table-header table-data" mat-header-cell *matHeaderCellDef> Passing percentage</th>
+    <td class="table-data" mat-cell *matCellDef="let quizzes"> {{quizzes.passingPercentage}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="take test">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Take test</th>
+    <td mat-cell *matCellDef="let quizzes"> <button mat-flat-button color="primary"
+        (click)="onTakeQuiz(quizzes._id)">Take
+        quiz</button> </td>
+  </ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

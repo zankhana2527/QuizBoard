@@ -1,0 +1,27 @@
+.card{
+  height: 30vh;
+  margin: 30px;
+}
+
+.welcome-header {
+  font-size: 40px;
+  padding: 25px;
+}
+
+.wrapper{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.number-display{
+  font-size: 60px;
+  float: right;
+  padding: 20px;
+  padding-top: 90px;
+  padding-left: 20px;
+}
+
+.card-header{
+  font-size: 30px;
+  padding-top: 20px;
+}

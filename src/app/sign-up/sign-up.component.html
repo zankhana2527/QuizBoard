@@ -1,0 +1,73 @@
+<div class="container">
+  <form [formGroup]="signUpForm" class="sign-up" (ngSubmit)="onSubmit()">
+
+    <p class="signup">Sign up</p>
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for="firstname">First name</mat-label>
+      <input matInput formControlName="firstname" type="text">
+      <mat-error>
+        <span *ngIf="signUpForm.controls.firstname.errors?.required && signUpForm.controls.firstname.touched">
+          Firstname is required
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for="lastname">Last name</mat-label>
+      <input matInput formControlName="lastname" type="text">
+      <mat-error>
+        <span *ngIf="signUpForm.controls.lastname.errors?.required && signUpForm.controls.lastname.touched">
+          Lastname is required
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for="email">Email</mat-label>
+      <input matInput formControlName="email" type="email">
+      <!-- <mat-hint>eg. quiz@rishabhsoftware.com</mat-hint> -->
+      <mat-error>
+        <span *ngIf="signUpForm.controls.email.errors?.required && signUpForm.controls.email.touched">
+          Email is required
+        </span>
+      </mat-error>
+      <mat-error>
+        <span *ngIf="signUpForm.controls.email.errors?.pattern">Invalid email pattern</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for="password">Password</mat-label>
+      <input matInput formControlName="password" type="password">
+      <mat-error>
+        <span *ngIf="signUpForm.controls.password.errors?.required && signUpForm.controls.password.touched">
+          Password is required
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="box">
+      <mat-label for="confirmPassword">Confirm Password</mat-label>
+      <input matInput formControlName="confirmPassword" type="password">
+    </mat-form-field>
+    <mat-error class="confirm-password-error">
+      <span *ngIf="isPasswordMatching && signUpForm.controls.confirmPassword.dirty">
+        Passwords are not matching
+      </span>
+
+      <span *ngIf="signUpForm.controls.confirmPassword.errors?.required && signUpForm.controls.confirmPassword.touched">
+        Confirm password is required
+      </span>
+    </mat-error>
+
+    <div class="example-button-row">
+      <button class="submit" type="submit" [disabled]="!signUpForm.valid || isPasswordMatching">Sign up</button>
+    </div>
+
+
+  </form>
+
+
+</div>

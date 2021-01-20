@@ -1,0 +1,54 @@
+.material-icons{
+  background-color: transparent;
+  border: none;
+}
+.material-icons:focus{
+  outline: none;
+}
+.material-icons:hover{
+  cursor: pointer;
+}
+
+.cross-icon {
+  transform: rotate(45deg);
+}
+
+.container{
+  width: 70%;
+  margin: 0 auto;
+}
+
+.main-card{
+  background-color: rgb(245, 245, 245);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.question-card {
+  display: flex;
+  justify-content: space-between;
+}
+.wrap-left{
+  flex: 1;
+}
+
+.option-container{
+  display: flex;
+  flex-direction: row ;
+  align-items: center;
+}
+
+mat-form-field{
+  width: 100%;
+  margin: 5px 10px;
+}
+
+button{
+  margin: 0 10px;
+}
+
+.buttons-area{
+  display: flex;
+  justify-content: space-between;
+}

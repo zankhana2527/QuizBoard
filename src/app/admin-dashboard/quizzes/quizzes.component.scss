@@ -1,0 +1,36 @@
+table {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+// button.create-btn{
+//   float: right;
+//   margin: 30px;
+//   margin-top: 0;
+//   padding: 10px 20px;
+//   background-color: var(--card);
+//   border: none;
+// }
+
+// button:hover {
+//   cursor: pointer;
+// }
+
+.table-header {
+  font-size: 1.3em;
+}
+
+.table-data {
+  text-align: center;
+}
+
+.delete-btn {
+  color: red
+}
+
+.no-quiz-alert {
+  padding: 20px;
+  letter-spacing: 1.5px;
+  text-align: center;
+}

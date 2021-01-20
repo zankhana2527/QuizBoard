@@ -1,0 +1,77 @@
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-add-questions',
+  templateUrl: './add-questions.component.html',
+  styleUrls: ['./add-questions.component.scss']
+})
+export class AddQuestionsComponent implements OnInit {
+
+  addQuestionForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.addQuestionForm = this.fb.group({
+      questions: this.fb.array([this.createQuestion()])
+    });
+  }
+
+  // question frm schema
+  createQuestion(): FormGroup {
+    return this.fb.group({
+      title: ['', Validators.required],
+      multiselect: false,
+      options: this.fb.array([this.createOptions(), this.createOptions()])
+    });
+  }
+
+  // option form schema
+  createOptions(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      isCorrect: false
+    });
+  }
+
+  // function for adding new question
+  addQuestion() {
+    const item = this.addQuestionForm.get('questions') as FormArray;
+    item.push(this.createQuestion());
+  }
+
+  // get questions array from form
+  get questions() {
+    return this.addQuestionForm.get('questions') as FormArray;
+  }
+
+  // get options array from form
+  getOptions(form) {
+    return form.controls.options.controls;
+  }
+
+  // add option to the form
+  addOption(index) {
+    const control = this.addQuestionForm.get('questions')['controls'][index].controls.options as FormArray;
+    console.log('control', control);
+    control.push(this.createOptions());
+  }
+
+  getMultiselect(index) {
+    const questions = this.addQuestionForm.get('questions') as FormArray;
+    return questions.controls[index]['controls']['multiselect'].value;
+  }
+
+  // remove option form the form
+  removeOption(i, j) {
+    const control = this.addQuestionForm.get('questions')['controls'][i].get('options');
+    control.removeAt(j);
+  }
+
+  submit() {
+    const data = this.addQuestionForm.getRawValue();
+    console.log('data = ', data);
+  }
+
+}

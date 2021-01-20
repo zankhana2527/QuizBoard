@@ -1,0 +1,52 @@
+<table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+  <!-- Firstname Column -->
+  <ng-container matColumnDef="firstname">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Firstname </th>
+    <td mat-cell *matCellDef="let users"> {{users.firstname}} </td>
+  </ng-container>
+
+  <!-- Lastname Column -->
+  <ng-container matColumnDef="lastname">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Lastname </th>
+    <td mat-cell *matCellDef="let users"> {{users.lastname}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let users"> {{users.email}} </td>
+  </ng-container>
+
+  <!-- Role Column -->
+  <ng-container matColumnDef="role">
+    <th class="table-header" mat-header-cell *matHeaderCellDef> Role </th>
+    <td mat-cell *matCellDef="let users"> {{users.role}} </td>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="actions">
+    <th class="table-header" class="table-header" mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let users">
+
+      <div *ngIf="users.role === 'admin'; else showBtn"></div>
+      <ng-template #showBtn>
+        <div *ngIf="users.role === 'lead'; then makeUserBtn; else makeLeadBtn"></div>
+        <ng-template #makeLeadBtn>
+          <button mat-stroked-button color="primary"
+            (click)="onMakeLead(users._id, users.firstname, users.lastname)">Make Lead</button>
+        </ng-template>
+        <ng-template #makeUserBtn>
+          <button mat-flat-button color="accent" (click)="onMakeUser(users._id)">Make User</button>
+        </ng-template>
+      </ng-template>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<p *ngIf="users.length === 0" class="no-user-alert"> No users found</p>

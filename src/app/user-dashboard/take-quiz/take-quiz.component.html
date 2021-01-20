@@ -1,0 +1,99 @@
+<!-- toggle between quiz card and question cards -->
+<div *ngIf="quizStarted; then takeQuiz ;else quizDetails"></div>
+
+<ng-template #quizDetails>
+
+  <div class="quiz-details-card">
+    <div class="quiz-card-items">
+      <p> Quiz title: {{ quiz.title }} </p>
+      <p> Description: {{ quiz.description }} </p>
+      <p> Duration: {{ quiz.duration }} min </p>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="onStartQuiz()" [disabled]="startQuizDisabled">Start Quiz</button>
+  </div>
+
+</ng-template>
+
+
+<ng-template #takeQuiz>
+
+  <div *ngIf="!submitted; then continueQuiz; else viewResult"></div>
+
+  <ng-template #continueQuiz>
+    <div class="secondory-header">
+      <p class="quiz-started">Quiz title: {{ quiz.title }} </p>
+      <p class="countdown"> Time left:
+        <countdown #cd [config]="{leftTime: quiz.duration*60, notify: [ quiz.duration*60*0.2 ]}"
+          (event)="handleEvent($event)">
+        </countdown>
+      </p>
+    </div>
+
+    <div class="container-card">
+      <div class="question-card">
+        <div>
+          <h1>{{currentQuestion + 1}}. {{questions[currentQuestion]?.title}}</h1>
+          <div *ngFor="let option of questions[currentQuestion]?.options">
+            <!-- <p>{{ option.name }}</p> -->
+
+            <div *ngIf="questions[currentQuestion].multiselect; then checkbox; else radiobutton"></div>
+
+            <ng-template #checkbox>
+              <mat-checkbox class="example-margin" [checked]="isSelected(questions[currentQuestion]._id, option._id)"
+                (click)="selectAnswer(questions[currentQuestion]._id, option._id, true)">
+                {{option.name}}
+              </mat-checkbox>
+            </ng-template>
+
+            <ng-template #radiobutton>
+              <mat-radio-button [name]="i" [checked]="isSelected(questions[currentQuestion]._id, option._id)"
+                (click)="selectAnswer(questions[currentQuestion]._id, option._id)">
+                {{option.name}}
+              </mat-radio-button>
+            </ng-template>
+
+          </div>
+        </div>
+      </div>
+
+      <button mat-flat-button class="pre-btn" color="accent" (click)="onPreviousQuestion()"
+        [disabled]="currentQuestion<=0">Previous
+      </button>
+
+
+      <!-- toggle next and submit button -->
+      <div *ngIf="(questions.length-1)==currentQuestion; then submitButton; else nextButton"></div>
+
+      <ng-template #nextButton>
+        <button mat-flat-button color="accent" class="next-btn" color="accent" (click)="onNextQuestion()"
+          [disabled]="(questions.length-1)==currentQuestion">Next
+        </button>
+      </ng-template>
+
+      <ng-template #submitButton>
+        <button mat-flat-button color="primary" class="next-btn" (click)="onSubmitQuiz()">Submit</button>
+      </ng-template>
+
+    </div>
+  </ng-template>
+
+  <ng-template #viewResult>
+    <div class="view-result">
+
+      <h1>Score</h1>
+      <h2>You have scored {{ percentage }}%</h2>
+      <h2 *ngIf="acheivedPassingMark; then passedTest; else failedTest"></h2>
+      <ng-template #failedTest>
+        <h2>You did not pass the test, kindly reappear for the test. <button class="reapper-quiz-btn"
+            (click)="onReappearTest()">Reapper the
+            test</button></h2>
+      </ng-template>
+      <ng-template #passedTest>
+        <h2>Congratulations, you have qualified the test.</h2>
+      </ng-template>
+
+    </div>
+  </ng-template>
+
+</ng-template>

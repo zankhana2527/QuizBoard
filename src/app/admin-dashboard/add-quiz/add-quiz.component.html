@@ -1,0 +1,33 @@
+<div class="container">
+  <p class="title">Create New Quiz</p>
+  <form [formGroup]="addQuiz" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="standard" class="box">
+      <mat-label for="title">Title</mat-label>
+      <input matInput formControlName="title" type="text" name="title" id="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" class="box">
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description" matInput type="text" name="description" id="title"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" class="box">
+      <mat-label>Creator</mat-label>
+      <input formControlName="creator" matInput type="text" name="creator" id="creator" />
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" class="box">
+      <mat-label>Duration <small>(in minute)</small></mat-label>
+      <input formControlName="duration" matInput type="text" name="duration" id="duration" />
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" class="box">
+      <mat-label>Passing percentage</mat-label>
+      <input formControlName="passingPercentage" matInput type="text" name="passingPercentage" id="passingPercentage" />
+    </mat-form-field>
+
+    <button [disabled]="!addQuiz.valid" type="submit">Save</button>
+    <button (click)="onGoBack()">Back</button>
+  </form>
+</div>

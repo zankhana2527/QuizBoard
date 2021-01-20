@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="main">
+
+    <div class="left-split">
+      <div class="overlay"></div>
+      <p class="welcome-message"><span class="welcome">Welcome!!</span></p>
+      <p class="welcome-message2"><span>to Quiz community!</span>
+        <br> Discover quizzes on
+        trending technologies
+        and test your
+        knowledge. <br>Happy Learning! Stay tuned for amazing quizzes</p>
+    </div>
+
+    <div class="right-split">
+      <div *ngIf="isLogin; then login; else signup"></div>
+    </div>
+
+    <ng-template #login>
+      <div class="example-button-row">
+        <p class="toggle-btn">New user?<a (click)="toggle()"> Sign up</a></p>
+      </div>
+      <app-log-in></app-log-in>
+    </ng-template>
+
+    <ng-template #signup>
+      <div class="example-button-row">
+        <p class="toggle-btn">Already a member? <a (click)="toggle()">Log in</a></p>
+      </div>
+      <app-sign-up></app-sign-up>
+    </ng-template>
+
+  </div>
+</div>

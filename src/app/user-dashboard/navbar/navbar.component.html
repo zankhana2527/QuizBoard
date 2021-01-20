@@ -1,0 +1,23 @@
+<div>
+  <mat-selection-list [multiple]="false" class="navbar">
+
+    <mat-list-option class="list-items" routerLink="quizzes">
+      <div class="align-nav-item">
+        <img src="../../../assets/book-open.svg"> <span> Quizzes </span>
+      </div>
+    </mat-list-option>
+
+    <mat-list-option class="list-items" routerLink="user-result">
+      <div class="align-nav-item">
+        <img src="../../../assets/percent.svg"> <span> Result </span>
+      </div>
+    </mat-list-option>
+
+    <mat-list-option class="list-items" (click)="logout()">
+      <div class="align-nav-item">
+        <img src="../../../assets/log-out.svg"> <span> Log out </span>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+
+</div>

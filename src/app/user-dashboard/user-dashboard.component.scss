@@ -1,0 +1,46 @@
+.wrapper {
+  margin-left: 17%;
+  padding: 20px;
+  padding-top: 100px;
+  background-image: url('../../assets/topography.svg');
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 82vh;
+}
+
+.menu-btn{
+  transform: rotate(90deg);
+  border: 0px solid transparent;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 35px;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+.menu-btn:focus{
+  outline: none;
+}
+
+ul{
+  list-style-type: none;
+}
+
+li{
+  display: inline;
+
+}
+
+
+@media (max-width: 1010px) {
+  app-navbar {
+    display: none;
+  }
+  .wrapper {
+    margin-left: 0%;
+  }
+  .menu-btn {
+    display: block;
+  }
+}

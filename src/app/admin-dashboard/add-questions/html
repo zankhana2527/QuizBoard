@@ -1,0 +1,43 @@
+<form [formGroup]="addQuestionForm" (ngSubmit)="submit()">
+
+  <h2>Add questions form</h2>
+
+  <div formArrayName="questions" *ngFor="let question of questions.controls; let i = index;">
+    <div [formGroupName]="i">
+
+      <mat-form-field appearance="standard" class="box">
+        <mat-label for="title">Title</mat-label>
+        <input matInput formControlName="title" type="text">
+      </mat-form-field>
+
+      <mat-checkbox formControlName="multiselect" class="example-margin">Multiselect</mat-checkbox>
+
+      <!-- Options -->
+      <div formArrayName="options" *ngFor="let option of getOptions(question);  let j = index;">
+        <div [formGroupName]="j">
+          <div *ngIf="getMultiselect(i); then checkbox; else radiobutton"></div>
+
+          <ng-template #checkbox>
+            <mat-checkbox formControlName="isCorrect" class="example-margin">Is correct</mat-checkbox>
+          </ng-template>
+
+          <ng-template #radiobutton>
+            <mat-radio-button name="isCorrect">Is correct?</mat-radio-button>
+          </ng-template>
+
+          <mat-form-field appearance="standard" class="box">
+            <mat-label for="name">Name</mat-label>
+            <input matInput formControlName="name" type="text">
+          </mat-form-field>
+          <button (click)="removeOption(i, j)">Delete</button>
+          <button (click)="addOption(i)">Add</button>
+        </div>
+      </div>
+
+    </div>
+    <button mat-button mat-raised-button color="accent" (click)="addQuestion()">Add Question</button>
+
+  </div>
+  <button mat-button mat-raised-button color="primary" type="submit">Submit</button>
+
+</form>

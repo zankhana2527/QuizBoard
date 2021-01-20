@@ -1,0 +1,53 @@
+<p class="welcome-header">{{ greet }} , {{ firstname | titlecase}} !</p>
+<div class="wrapper">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>
+        <p class="card-header">Total users</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="number-display">{{statistics.userCount}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>
+        <p class="card-header">Total quiz</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="number-display">{{statistics.quizCount}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>
+        <p class="card-header">Total live quiz</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="number-display">{{statistics.liveQuizCount}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>
+        <p class="card-header">Total lead</p>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="number-display">{{statistics.leadCount}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title><p></p>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card> -->
+</div>

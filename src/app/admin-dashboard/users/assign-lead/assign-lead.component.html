@@ -1,0 +1,18 @@
+<div class="popup-box">
+  <mat-dialog-content>
+    <p class="header">
+      Assign users to {{ data.name }}
+    </p>
+    <div *ngFor="let user of users" class="users-checkbox">
+      <mat-checkbox class="example-margin" (click)="user.lead!==''? {} :  addUser(user._id)" [checked]="user.lead!==''"
+        [disabled]="user.lead!==''">
+        {{user.firstname}} {{user.lastname}}
+      </mat-checkbox>
+    </div>
+  </mat-dialog-content>
+
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="selectedUsers">Assign</button>
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+  </div>
+</div>
