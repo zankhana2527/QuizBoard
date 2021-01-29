@@ -31,3 +31,199 @@
 
   </div>
 </div>
+
+
+<!-- Resolce the bug -->
+
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ITEMS } from './createClientsData';
+
+@Component({
+  selector: 'app-create-client-renew-sub',
+  // templateUrl: './create-client-renew-sub.component.html',
+  template: `
+  <div class="container">
+    <h1>Create client</h1>
+            <form [formGroup]="createClientForm">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="client-name">Client name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" formControlName="clientName" placeholder="Enter client name" #clientName>
+                        <span *ngIf="(createClientForm.controls.clientName.touched  || isSubmitted) && createClientForm.controls.clientName.errors?.required">This field is required</span>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-25">
+                        <label for="client-id">Client ID</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" formControlName="clientId" #clientId>
+                        <span *ngIf="(createClientForm.controls.clientId.touched  || isSubmitted) && createClientForm.controls.clientId.errors?.required">This field is required</span>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-25">
+                        <label for="client-address">Client Address</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" formControlName="clientAddress" placeholder="Enter client address" #clientAddress>
+                        <span *ngIf="(createClientForm.controls.clientAddress.touched  || isSubmitted) && createClientForm.controls.clientAddress.errors?.required">This field is required</span>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-25">
+                        <label for="client-contact">Client contact number</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" formControlName="clientContact" placeholder="Enter contact number" #clientContact>
+                        <span *ngIf="(createClientForm.controls.clientContact.touched  || isSubmitted) && createClientForm.controls.clientContact.errors?.required">This field is required</span>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-25">
+                        <label for="sub-start-date">Subscription start date</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="date" formControlName="startDate" #startDate>
+                        <span *ngIf="(createClientForm.controls.startDate.touched  || isSubmitted) && createClientForm.controls.startDate.errors?.required">This field is required</span>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-25">
+                        <label for="sub-start-date">Subscription end date</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="date" formControlName="endDate" #endDate>
+                        <span *ngIf="(createClientForm.controls.endDate.touched  || isSubmitted) && createClientForm.controls.endDate.errors?.required">This field is required</span>
+                    </div>
+                </div>
+            
+                <button class="btn btn-primary m-2" (click)="onSubmit()">Submit</button>
+                <button class="btn btn-warning m-2" (click)="onCancel()">Cancel</button>
+                <button class="btn btn-danger m-2" (click)="onClear()">Clear</button>
+            </form>
+
+    <h2>Client List</h2>
+    
+    <table id="client-list-table">
+        <tr>
+            <th>Sr no</th>
+            <th>Client name</th>
+            <th>Client ID</th>
+            <th>Subscription start date</th>
+            <th>Subscription end date</th>
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let item of items, let i = index">
+            <td>00</td>
+            <td>{{ item.name}}</td>
+            <td>{{ item.id}}</td>
+            <td>{{ item.startDate}}</td>
+            <td>{{ item.endDate}}</td>
+            <td><button class="btn btn-primary" (click)="onEdit(i)">Edit</button></td>
+        </tr>
+    </table>
+</div>
+  `
+  styleUrls: ['./create-client-renew-sub.component.css']
+})
+export class CreateClientRenewSubComponent implements OnInit {
+
+  createClientForm: FormGroup;
+  isSubmitted: boolean = false;
+
+  items = ITEMS;
+
+//   @ViewChild('clientName') clientName: any;
+
+  @ViewChild('clientName') clientName: ElementRef;
+  @ViewChild('clientId') clientId: ElementRef;
+  @ViewChild('clientAddress') clientAddress: ElementRef;
+  @ViewChild('clientContact') clientContact: ElementRef;
+  @ViewChild('startDate') startDate: ElementRef;
+  @ViewChild('endDate') endDate: ElementRef;
+
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.createClientForm = this.fb.group({
+      clientName: ['', Validators.required],
+      clientId: [(this.items[this.items.length-1].id) + 1, Validators.required],
+      clientAddress: ['', Validators.required],
+      clientContact: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
+    })
+  }
+
+
+  onSubmit() {
+        this.isSubmitted = true;
+        if(this.createClientForm.valid) {
+            const rawValues = this.createClientForm.getRawValue();
+            const confirmSubscription = confirm(`Are you sure to create subscription for ${rawValues.clientName}?`);
+            if(confirmSubscription) {
+                alert('Subscription created successfully')
+                this.items.push(
+                    {
+                        name: rawValues.clientName, 
+                        id: rawValues.clientId,
+                        address: rawValues.clientAddress,
+                        contactNumber: rawValues.clientContact, 
+                        startDate: rawValues.startDate, 
+                        endDate: rawValues.endDate
+                    })
+                this.createClientForm.reset();
+                this.isSubmitted = false;
+            }
+        }
+        // console.log(this.createClientForm);
+  } 
+
+  onClear() {
+        this.clientName.nativeElement.value = '';
+        this.clientId.nativeElement.value= '';
+        this.clientAddress.nativeElement.value='';
+        this.clientContact.nativeElement.value='';
+        this.startDate.nativeElement.value='';
+        this.endDate.nativeElement.value='';
+  }
+
+  onCancel() {
+    //   Migrate user to the dashboard
+  }
+
+  onEdit(i) {
+    let data = {
+      clientName: this.items[i].name,
+      clientId: this.items[i].id,
+      clientAddress: this.items[i].address,
+      clientContact: this.items[i].contactNumber,
+      startDate: this.items[i].startDate,
+      endDate: this.items[i].endDate,
+    }
+    console.log(data);
+    this.createClientForm = this.fb.group({
+      clientName: [data.clientName, Validators.required],
+      clientId: [data.clientId, Validators.required],
+      clientAddress: [data.clientAddress, Validators.required],
+      clientContact: [data.clientContact, Validators.required],
+      startDate: [data.startDate, Validators.required],
+      endDate: [data.endDate, Validators.required]
+    })
+  }
+
+}
+
+interface = {
+  name, id, address, contactNumber, startDate, endDate
+}
